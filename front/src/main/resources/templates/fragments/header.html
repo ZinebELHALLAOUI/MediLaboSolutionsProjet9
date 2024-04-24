@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<block th:fragment="header">
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+  <a href="/"
+     class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+    <span class="fs-4">Medi Labo Solutions</span>
+  </a>
+
+  <ul class="nav nav-pills">
+    <li class="nav-item"><a href="/" th:class="${currentUri.equals('/')} ? 'nav-link active' : 'nav-link'">Home</a></li>
+    <li class="nav-item"><a href="/patients" th:class="${currentUri.contains('/patients')} ? 'nav-link active' : 'nav-link'">Patients</a></li>
+<!--    <li class="nav-item"><a href="./deposits" th:class="${#httpServletRequest.requestURI.equals('/deposits')} ? 'nav-link active' : 'nav-link'">Deposit</a></li>-->
+<!--    <li class="nav-item"><a href="./withdrawals" th:class="${#httpServletRequest.requestURI.equals('/withdrawals')} ? 'nav-link active' : 'nav-link'">Withdrawal</a></li>-->
+<!--    <li class="nav-item"><a th:href="@{/logout}" class="nav-link">Log off</a></li>-->
+  </ul>
+</header>
+</block>
+</html>

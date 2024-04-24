@@ -1,9 +1,9 @@
 package io.zineb.controller;
 
-import io.zineb.model.Patient;
 import io.zineb.service.PatientService;
-import io.zineb.service.exception.DuplicatedEntityException;
 import io.zineb.service.exception.NotFoundEntityException;
+import io.zineb.model.Patient;
+import io.zineb.service.exception.DuplicatedEntityException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:include="fragments/head.html :: head"> </th:block> /*/-->
+</head>
+
+<body>
+<main>
+    <div class="container">
+        <!--/*/ <th:block th:include="fragments/header.html :: header"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/breadcrumb.html :: breadcrumb"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/error.html :: error"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/info.html :: infos"> </th:block> /*/-->
+
+        <div class="row">
+            <div class="col">
+                <h1>Patients menu</h1>
+                <a href="/patients/add-form" class="btn btn-info" role="button"><i class="bi bi-person-fill-add"></i>
+                    Add patient</a>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col">
+                <form action="#" th:action="@{/patients/search}" th:object="${searchPatientRequest}" method="get">
+                    <fieldset>
+                        <legend>Find patient</legend>
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Firstname</label>
+                            <input type="text" th:field="*{firstName}" id="firstName" class="form-control"
+                                   placeholder="John" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Lastname</label>
+                            <input type="text" th:field="*{lastName}" id="lastName" class="form-control"
+                                   placeholder="Boyd" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <fieldset th:if="${patient}">
+                        <legend>Patient found</legend>
+                        <p>Firstname : <span th:text="${patient.firstName}"></p>
+                        <p>Lastname : <span th:text="${patient.lastName}"></p>
+                        <p>dateOfBirth : <span th:text="${patient.dateOfBirth}"></p>
+                        <p>gender : <span th:text="${patient.gender}"></p>
+                        <p>address : <span th:text="${patient.address}"></p>
+                        <p>phoneNumber : <span th:text="${patient.phoneNumber}"></p>
+                        <a th:href="@{'/patients/edit-form/' + ${patient.firstName} + '/' + ${patient.lastName}}" class="btn btn-success"><i class="bi bi-pencil-fill"></i> Edit</a>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+<!--/*/ <th:block th:include="fragments/js.html :: js"> </th:block> /*/-->
+
+</body>
+</html>

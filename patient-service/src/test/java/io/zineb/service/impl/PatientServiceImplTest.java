@@ -1,10 +1,10 @@
 package io.zineb.service.impl;
 
-import io.zineb.model.Patient;
-import io.zineb.repository.PatientRepository;
 import io.zineb.service.PatientService;
 import io.zineb.service.exception.DuplicatedEntityException;
 import io.zineb.service.exception.NotFoundEntityException;
+import io.zineb.model.Patient;
+import io.zineb.repository.PatientRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:include="fragments/head.html :: head"> </th:block> /*/-->
+</head>
+
+<body>
+<main>
+    <div class="container">
+        <!--/*/ <th:block th:include="fragments/header.html :: header"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/breadcrumb.html :: breadcrumb"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/error.html :: error"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/info.html :: infos"> </th:block> /*/-->
+
+        <div class="row">
+            <div class="col text-center">
+                <h1>Welcome to Medi labo solutions</h1>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"> <i class="bi bi-person-rolodex"></i> Patients</h5>
+                        <p class="card-text">Search, add or update patients.</p>
+                        <a href="/patients" class="btn btn-primary">Go to patients</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Coming soon</h5>
+                        <p class="card-text">Wait for it</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+<!--/*/ <th:block th:include="fragments/js.html :: js"> </th:block> /*/-->
+
+</body>
+</html>

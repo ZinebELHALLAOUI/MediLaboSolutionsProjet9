@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:include="fragments/head.html :: head"> </th:block> /*/-->
+</head>
+
+<body>
+<main>
+    <div class="container">
+        <!--/*/ <th:block th:include="fragments/header.html :: header"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/breadcrumb.html :: breadcrumb"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/error.html :: error"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/info.html :: infos"> </th:block> /*/-->
+
+        <div class="row">
+            <div class="col">
+                <h1 th:if="${operation.equals('add')}">Add patient</h1>
+                <h1 th:if="${operation.equals('edit')}">Edit patient</h1>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-8">
+                <form th:if="${operation.equals('add')}" action="#" th:action="@{/patients}" th:object="${patient}"
+                      method="post">
+                    <fieldset>
+                        <legend>Add</legend>
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Firstname</label>
+                            <input type="text" th:field="*{firstName}" id="firstName" class="form-control"
+                                   placeholder="John" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Lastname</label>
+                            <input type="text" th:field="*{lastName}" id="lastName" class="form-control"
+                                   placeholder="Boyd" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dateOfBirth" class="form-label">Date of birth</label>
+                            <input type="date" th:field="*{dateOfBirth}" id="dateOfBirth" class="form-control"
+                                   pattern="\d{4}-\d{2}-\d{2}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select id="gender" class="form-select" th:field="*{gender}">
+                                <option th:value="F">Female</option>
+                                <option th:value="M">Male</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" th:field="*{address}" id="address" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">Phone number</label>
+                            <input type="number" th:field="*{phoneNumber}" id="phoneNumber" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-person-fill-add"></i> Add</button>
+                    </fieldset>
+                </form>
+                <form th:if="${operation.equals('edit')}" action="#" th:action="@{/patients/edit}" th:object="${patient}"
+                      method="post">
+                    <fieldset>
+                        <legend>Edit</legend>
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Firstname</label>
+                            <input type="text" th:field="*{firstName}" id="firstName" class="form-control"
+                                   placeholder="John" required disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Lastname</label>
+                            <input type="text" th:field="*{lastName}" id="lastName" class="form-control"
+                                   placeholder="Boyd" required disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label for="dateOfBirth" class="form-label">Date of birth</label>
+                            <input type="text" th:field="*{dateOfBirth}" id="dateOfBirth" class="form-control"
+                                   placeholder="28/04/2025" required>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <select id="gender" class="form-select" th:field="*{gender}">
+                                <option th:value="F">Female</option>
+                                <option th:value="M">Male</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" th:field="*{address}" id="address" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label">Phone number</label>
+                            <input type="number" th:field="*{phoneNumber}" id="phoneNumber" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success"><i class="bi bi-pencil-fill"></i> Edit</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</main>
+<!--/*/ <th:block th:include="fragments/js.html :: js"> </th:block> /*/-->
+
+</body>
+</html>
