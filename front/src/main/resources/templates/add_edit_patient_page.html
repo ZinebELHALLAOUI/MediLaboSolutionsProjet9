@@ -62,15 +62,16 @@
                       method="post">
                     <fieldset>
                         <legend>Edit</legend>
+                        <input type="hidden" th:field="*{id}">
                         <div class="mb-3">
                             <label for="firstName" class="form-label">Firstname</label>
                             <input type="text" th:field="*{firstName}" id="firstName" class="form-control"
-                                   placeholder="John" required disabled>
+                                   placeholder="John" required>
                         </div>
                         <div class="mb-3">
                             <label for="firstName" class="form-label">Lastname</label>
                             <input type="text" th:field="*{lastName}" id="lastName" class="form-control"
-                                   placeholder="Boyd" required disabled>
+                                   placeholder="Boyd" required>
                         </div>
                         <div class="mb-3">
                             <label for="dateOfBirth" class="form-label">Date of birth</label>
@@ -101,6 +102,7 @@
 
     </div>
 </main>
+<!--/*/ <footer:block th:include="fragments/footer.html :: footer"> </footer:block> /*/-->
 <!--/*/ <th:block th:include="fragments/js.html :: js"> </th:block> /*/-->
 
 </body>

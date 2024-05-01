@@ -78,7 +78,7 @@ public class PatientControllerTestIT {
         patient.setLastName("Smith");
         patient.setDateOfBirth(LocalDate.of(1980, 1, 1));
 
-        when(patientService.savePatient(any())).thenReturn(patient);
+        when(patientService.createPatient(any())).thenReturn(patient);
 
         // When/Then
         mockMvc.perform(MockMvcRequestBuilders.post("/")
@@ -92,7 +92,7 @@ public class PatientControllerTestIT {
     @Test
     public void createPatient_WhenDuplicatePatient_ReturnsBadRequest() throws Exception {
         // Given
-        when(patientService.savePatient(any())).thenThrow(new DuplicatedEntityException("Duplicate patient"));
+        when(patientService.createPatient(any())).thenThrow(new DuplicatedEntityException("Duplicate patient"));
 
         // When/Then
         mockMvc.perform(MockMvcRequestBuilders.post("/")

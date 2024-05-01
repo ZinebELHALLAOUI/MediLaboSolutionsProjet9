@@ -67,7 +67,7 @@ public class PatientServiceImplTest {
         when(patientRepository.save(patient)).thenReturn(patient);
 
         // When
-        Patient result = patientService.savePatient(patient);
+        Patient result = patientService.createPatient(patient);
 
         // Then
         assertThat(result).isEqualTo(patient);
@@ -85,7 +85,7 @@ public class PatientServiceImplTest {
 
         // Then
         assertThatExceptionOfType(DuplicatedEntityException.class)
-                .isThrownBy(() -> patientService.savePatient(patient));
+                .isThrownBy(() -> patientService.createPatient(patient));
     }
 
     @Test

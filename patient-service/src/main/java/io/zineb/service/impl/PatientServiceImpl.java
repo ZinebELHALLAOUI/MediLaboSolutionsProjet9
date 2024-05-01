@@ -3,11 +3,11 @@ package io.zineb.service.impl;
 import io.zineb.model.Patient;
 import io.zineb.repository.PatientRepository;
 import io.zineb.service.PatientService;
-import io.zineb.service.exception.DuplicatedEntityException;
 import io.zineb.service.exception.NotFoundEntityException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -16,25 +16,33 @@ public class PatientServiceImpl implements PatientService {
 
     private PatientRepository patientRepository;
 
+
     @Override
-    public Optional<Patient> findPatient(String firstName, String lastName) {
-        return patientRepository.findByFirstNameAndLastName(firstName, lastName);
+    public Optional<Patient> findPatientByFirstnameOrLastname(String query) {
+        return patientRepository.findByFirstNameOrLastName(query,query);
     }
 
     @Override
-    public Patient savePatient(Patient patient) {
-        Optional<Patient> maybePatient = findPatient(patient.getFirstName(), patient.getLastName());
-        if (maybePatient.isPresent())
-            throw new DuplicatedEntityException(String.format("Patient %s %s already exist", patient.getFirstName(), patient.getLastName()));
+    public List<Patient> getAll() {
+        return patientRepository.findAll();
+    }
+
+    @Override
+    public Optional<Patient> findPatientById(long id) {
+        return patientRepository.findById(id);
+    }
+
+    @Override
+    public Patient createPatient(Patient patient) {
+        patient.setId(null);
         return patientRepository.save(patient);
     }
 
     @Override
     public Patient updatePatient(Patient patient) {
-        Optional<Patient> maybePatient = findPatient(patient.getFirstName(), patient.getLastName());
-        if (maybePatient.isEmpty())
-            throw new NotFoundEntityException(String.format("Patient %s %s not found", patient.getFirstName(), patient.getLastName()));
-        patient.setId(maybePatient.get().getId());
+        if (patient.getId() == null || findPatientById(patient.getId()).isEmpty()) {
+            throw new NotFoundEntityException(String.format("Patient %s not found", patient.getId()));
+        }
         return patientRepository.save(patient);
     }
 

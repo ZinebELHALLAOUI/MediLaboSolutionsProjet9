@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--/*/ <th:block th:include="fragments/head.html :: head"> </th:block> /*/-->
+</head>
+
+<body>
+<main>
+    <div class="container">
+        <!--/*/ <th:block th:include="fragments/header.html :: header"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/breadcrumb.html :: breadcrumb"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/error.html :: error"> </th:block> /*/-->
+        <!--/*/ <th:block th:include="fragments/info.html :: infos"> </th:block> /*/-->
+
+        <div class="row">
+            <div class="col">
+                <a th:href="@{'/patients/' + ${patientId} + '/' + 'notes'}" class="btn btn-secondary">
+                    <i class="bi bi-stickies"></i> Back to notes
+                </a>
+            </div>
+        </div>
+<br>
+<br>
+        <div class="row">
+            <div class="col">
+                <form action="#" th:action="@{'/patients/'+${patientId}+'/notes'}" th:object="${note}" method="post" enctype="multipart/form-data">
+                    <fieldset>
+                        <legend>Add a note</legend>
+                        <div class="mb-3">
+                            <label for="note" class="form-label">Note</label>
+                            <textarea th:field="*{note}" class="form-control" id="note" rows="3" placeholder="Write your note here ..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-stickies"></i> Add</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<!--/*/ <footer:block th:include="fragments/footer.html :: footer"> </footer:block> /*/-->
+<!--/*/ <th:block th:include="fragments/js.html :: js"> </th:block> /*/-->
+
+</body>
+</html>

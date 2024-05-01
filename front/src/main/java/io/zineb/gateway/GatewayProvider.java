@@ -1,21 +1,32 @@
 package io.zineb.gateway;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @FeignClient(value = "gateway", url = "http://localhost:8080/")
 public interface GatewayProvider {
 
-    @GetMapping("/patients/query")
-    Patient getPatient(@RequestParam String firstName, @RequestParam String lastName);
+    @GetMapping("patients/search")
+    Patient patientSearch(@RequestParam String query);
 
-    @PostMapping("/patients")
+    @GetMapping("patients/{id}")
+    Patient getPatient(@PathVariable long id);
+
+    @GetMapping("patients")
+    Patient getAllPatient();
+
+    @PostMapping("patients")
     Patient createPatient(Patient patient);
 
-    @PutMapping("/patients")
+    @PutMapping("patients")
     Patient updatePatient(Patient patient);
+
+    @GetMapping("notes/query")
+    List<Note> getNotes(@RequestParam long patId);
+
+    @PostMapping("notes")
+    Note addNote(Note note);
 }
 

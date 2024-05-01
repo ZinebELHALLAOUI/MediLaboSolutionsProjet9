@@ -26,14 +26,9 @@
                     <fieldset>
                         <legend>Find patient</legend>
                         <div class="mb-3">
-                            <label for="firstName" class="form-label">Firstname</label>
-                            <input type="text" th:field="*{firstName}" id="firstName" class="form-control"
+                            <label for="query" class="form-label">Firstname or Lastname</label>
+                            <input type="text" th:field="*{query}" id="query" class="form-control"
                                    placeholder="John" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="firstName" class="form-label">Lastname</label>
-                            <input type="text" th:field="*{lastName}" id="lastName" class="form-control"
-                                   placeholder="Boyd" required>
                         </div>
                         <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
                     </fieldset>
@@ -49,7 +44,8 @@
                         <p>gender : <span th:text="${patient.gender}"></p>
                         <p>address : <span th:text="${patient.address}"></p>
                         <p>phoneNumber : <span th:text="${patient.phoneNumber}"></p>
-                        <a th:href="@{'/patients/edit-form/' + ${patient.firstName} + '/' + ${patient.lastName}}" class="btn btn-success"><i class="bi bi-pencil-fill"></i> Edit</a>
+                        <a th:href="@{'/patients/edit-form/'+${patient.id}}" class="btn btn-success"><i class="bi bi-pencil-fill"></i> Edit</a>
+                        <a th:href="@{'/patients/' + ${patient.id} + '/' + 'notes'}" class="btn btn-secondary"><i class="bi bi-stickies"></i> View patient notes</a>
                     </fieldset>
                 </div>
             </div>
@@ -57,6 +53,7 @@
 
     </div>
 </main>
+<!--/*/ <footer:block th:include="fragments/footer.html :: footer"> </footer:block> /*/-->
 <!--/*/ <th:block th:include="fragments/js.html :: js"> </th:block> /*/-->
 
 </body>

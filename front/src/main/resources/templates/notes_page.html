@@ -12,28 +12,27 @@
         <!--/*/ <th:block th:include="fragments/error.html :: error"> </th:block> /*/-->
         <!--/*/ <th:block th:include="fragments/info.html :: infos"> </th:block> /*/-->
 
-        <div class="row">
-            <div class="col text-center">
-                <h1>Welcome to Medi labo solutions</h1>
+        <div class="row" >
+            <div class="col align-self-end">
+                <a th:href="@{'/patients/' + ${patientId} + '/' + 'add-note'}" class="btn btn-info"><i class="bi bi-stickies"></i> Add a note</a>
             </div>
         </div>
-        <br/>
-        <div class="row">
-            <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="row" th:if="${notes.empty}">
+            <p>No notes for this patient</p>
+        </div>
+        <div class="row" th:each="note, index : ${notes}">
+            <div class="col">
+                <br>
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"> <i class="bi bi-person-rolodex"></i> Patients</h5>
-                        <p class="card-text">Search, add or update patients.</p>
-                        <a href="/patients" class="btn btn-primary">Go to patients</a>
+                    <div class="card-header">
+                        Note # [(${index.index+1})]
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="card">
+
                     <div class="card-body">
-                        <h5 class="card-title">Coming soon</h5>
-                        <p class="card-text">Wait for it</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <blockquote class="blockquote mb-0">
+                            <p>[(${note.note})]</p>
+                            <footer class="blockquote-footer">By <cite title="Source Title">Doctor </cite></footer>
+                        </blockquote>
                     </div>
                 </div>
             </div>

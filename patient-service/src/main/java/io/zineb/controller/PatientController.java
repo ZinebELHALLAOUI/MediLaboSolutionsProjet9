@@ -1,9 +1,8 @@
 package io.zineb.controller;
 
+import io.zineb.model.Patient;
 import io.zineb.service.PatientService;
 import io.zineb.service.exception.NotFoundEntityException;
-import io.zineb.model.Patient;
-import io.zineb.service.exception.DuplicatedEntityException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,19 +21,26 @@ public class PatientController {
 
     private final PatientService patientService;
 
-    @GetMapping("query")
-    public ResponseEntity<Patient> getPatient(@RequestParam String firstName, @RequestParam String lastName) {
-        Optional<Patient> patient = patientService.findPatient(firstName, lastName);
+    @GetMapping("search")
+    public ResponseEntity<Patient> findPatientByFirstnameOrLastname(@RequestParam String query) {
+        Optional<Patient> patient = patientService.findPatientByFirstnameOrLastname(query);
         return patient.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<Patient> getPatient(@PathVariable long id) {
+        Optional<Patient> patient = patientService.findPatientById(id);
+        return patient.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Patient>> getAllPatients() {
+        return ResponseEntity.ok(patientService.getAll());
     }
 
     @PostMapping
     public ResponseEntity<Patient> createPatient(@Validated @RequestBody Patient patient) {
-        try {
-            return ResponseEntity.ok(patientService.savePatient(patient));
-        }catch (DuplicatedEntityException e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return ResponseEntity.ok(patientService.createPatient(patient));
     }
 
     @PutMapping
