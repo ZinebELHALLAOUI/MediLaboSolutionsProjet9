@@ -28,27 +28,47 @@
                         <div class="mb-3">
                             <label for="query" class="form-label">Firstname or Lastname</label>
                             <input type="text" th:field="*{query}" id="query" class="form-control"
-                                   placeholder="John" required>
+                                   placeholder="John">
                         </div>
                         <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Search</button>
                     </fieldset>
                 </form>
             </div>
-            <div class="col">
-                <div class="row">
-                    <fieldset th:if="${patient}">
-                        <legend>Patient found</legend>
-                        <p>Firstname : <span th:text="${patient.firstName}"></p>
-                        <p>Lastname : <span th:text="${patient.lastName}"></p>
-                        <p>dateOfBirth : <span th:text="${patient.dateOfBirth}"></p>
-                        <p>gender : <span th:text="${patient.gender}"></p>
-                        <p>address : <span th:text="${patient.address}"></p>
-                        <p>phoneNumber : <span th:text="${patient.phoneNumber}"></p>
-                        <a th:href="@{'/patients/edit-form/'+${patient.id}}" class="btn btn-success"><i class="bi bi-pencil-fill"></i> Edit</a>
-                        <a th:href="@{'/patients/' + ${patient.id} + '/' + 'notes'}" class="btn btn-secondary"><i class="bi bi-stickies"></i> View patient notes</a>
-                    </fieldset>
-                </div>
-            </div>
+        </div>
+
+        <div class="row">
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Firstname</th>
+                    <th scope="col">Lastname</th>
+                    <th scope="col">DateOfBirth</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone number</th>
+                    <th scope="col">Risk diabetes</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="patient : ${patients}">
+                    <th>[(${patient.firstName})]</th>
+                    <td>[(${patient.lastName})]</td>
+                    <td>[(${patient.dateOfBirth})]</td>
+                    <td>[(${patient.gender})]</td>
+                    <td>[(${patient.address})]</td>
+                    <td>[(${patient.phoneNumber})]</td>
+                    <td>[(${patient.riskDiabetes})]</td>
+                    <td>
+                        <a th:href="@{'/patients/edit-form/'+${patient.id}}" class="btn btn-success"><i
+                                class="bi bi-pencil-fill"></i> Edit</a>
+                        <a th:href="@{'/patients/' + ${patient.id} + '/' + 'notes'}" class="btn btn-secondary"><i
+                                class="bi bi-stickies"></i> View patient notes</a>
+                    <td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
     </div>

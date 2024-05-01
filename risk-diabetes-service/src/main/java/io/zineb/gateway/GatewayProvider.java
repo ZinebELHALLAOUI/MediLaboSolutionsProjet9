@@ -2,17 +2,15 @@ package io.zineb.gateway;
 
 import io.zineb.model.Note;
 import io.zineb.model.Patient;
-import io.zineb.model.Risk;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 @FeignClient(value = "gateway", url = "http://localhost:8080/")
 public interface GatewayProvider {
-
-    @GetMapping("patients/search")
-    List<Patient> patientsSearch(@RequestParam String query);
 
     @GetMapping("patients/{id}")
     Patient getPatient(@PathVariable long id);
@@ -20,19 +18,8 @@ public interface GatewayProvider {
     @GetMapping("patients")
     List<Patient> getAllPatients();
 
-    @PostMapping("patients")
-    Patient createPatient(Patient patient);
-
-    @PutMapping("patients")
-    Patient updatePatient(Patient patient);
-
     @GetMapping("notes/query")
     List<Note> getNotes(@RequestParam long patId);
 
-    @PostMapping("notes")
-    Note addNote(Note note);
-
-    @GetMapping("risks")
-    Risk getRiskForPatient(@RequestParam long patId);
 }
 

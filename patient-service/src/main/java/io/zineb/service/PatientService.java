@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface PatientService {
 
-    Optional<Patient> findPatientByFirstnameOrLastname(String query);
+    List<Patient> findPatientByFirstnameOrLastname(String query);
 
     List<Patient> getAll();
 

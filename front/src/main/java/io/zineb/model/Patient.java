@@ -1,10 +1,10 @@
-package io.zineb.gateway;
+package io.zineb.model;
 
 import java.time.LocalDate;
 
 public record Patient(Long id, String firstName, String lastName, LocalDate dateOfBirth, Gender gender, String address,
                String phoneNumber) {
-    enum Gender {
+    public enum Gender {
         F,M
     }
 }

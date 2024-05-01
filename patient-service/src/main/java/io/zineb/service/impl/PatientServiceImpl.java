@@ -18,8 +18,8 @@ public class PatientServiceImpl implements PatientService {
 
 
     @Override
-    public Optional<Patient> findPatientByFirstnameOrLastname(String query) {
-        return patientRepository.findByFirstNameOrLastName(query,query);
+    public List<Patient> findPatientByFirstnameOrLastname(String query) {
+        return patientRepository.findAllByFirstNameOrLastName(query,query);
     }
 
     @Override

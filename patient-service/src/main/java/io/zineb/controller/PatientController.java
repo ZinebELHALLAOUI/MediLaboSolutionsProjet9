@@ -22,9 +22,9 @@ public class PatientController {
     private final PatientService patientService;
 
     @GetMapping("search")
-    public ResponseEntity<Patient> findPatientByFirstnameOrLastname(@RequestParam String query) {
-        Optional<Patient> patient = patientService.findPatientByFirstnameOrLastname(query);
-        return patient.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<List<Patient>> findPatientsByFirstnameOrLastname(@RequestParam String query) {
+        List<Patient> patients = patientService.findPatientByFirstnameOrLastname(query);
+        return ResponseEntity.ok(patients);
     }
 
     @GetMapping("{id}")
