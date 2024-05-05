@@ -29,7 +29,7 @@ public class PatientController {
     @GetMapping
     public String getPatientsPage(Model model) {
         List<Patient> patients = patientService.getAll();
-        model.addAttribute("patients", patients.stream().map(PatientDto::toDto).toList());
+        model.addAttribute("patients", patients.stream().map(patient -> PatientDto.toDto(patient, riskDiabetesService.getRiskByPatient(patient.id()).orElse(null))).toList());
         model.addAttribute("searchPatientRequest", new SearchPatientRequest(null));
         return "patients_pages";
     }
@@ -41,7 +41,7 @@ public class PatientController {
             patients = patientService.getAll();
         else
             patients = patientService.findPatientByFirstnameOrLastname(query);
-        model.addAttribute("patients", patients.stream().map(PatientDto::toDto).toList());
+        model.addAttribute("patients", patients.stream().map(patient -> PatientDto.toDto(patient, riskDiabetesService.getRiskByPatient(patient.id()).orElse(null))).toList());
         model.addAttribute("searchPatientRequest", new SearchPatientRequest(query));
         return "patients_pages";
     }

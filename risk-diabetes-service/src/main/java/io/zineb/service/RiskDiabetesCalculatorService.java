@@ -24,7 +24,7 @@ public class RiskDiabetesCalculatorService {
         List<Note> notes = noteRepository.findNotesByPatient(patientId);
 
         if (patientOpt.isEmpty() || notes.isEmpty()) {
-            return Risk.None; // No patient or notes found
+            return Risk.None;
         }
 
         Patient patient = patientOpt.get();

@@ -33,6 +33,6 @@ public interface GatewayProvider {
     Note addNote(Note note);
 
     @GetMapping("risks")
-    Risk getRiskForPatient(@RequestParam long patId);
+    Risk getRiskDiabetesForPatient(@RequestParam long patId);
 }
 

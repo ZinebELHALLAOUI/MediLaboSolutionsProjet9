@@ -17,7 +17,7 @@ public class RiskController {
     private final RiskDiabetesCalculatorService riskDiabetesCalculatorService;
 
     @GetMapping
-    public ResponseEntity<Risk> getRiskForPatient(@RequestParam long patientId) {
-        return ResponseEntity.ok(riskDiabetesCalculatorService.calculateRiskForPatient(patientId));
+    public ResponseEntity<Risk> getRiskForPatient(@RequestParam long patId) {
+        return ResponseEntity.ok(riskDiabetesCalculatorService.calculateRiskForPatient(patId));
     }
 }
