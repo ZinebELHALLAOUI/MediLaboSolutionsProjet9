@@ -1,0 +1,93 @@
+services:
+  mls-patient-service:
+    build: './patient-service'
+    container_name: 'mls-patient-service'
+    image: 'mls-patient-service:last'
+    ports:
+      - '8081:8081'
+    expose:
+      - '8081'
+    environment:
+      - MLS_MYSQL_HOST_AND_DB=host.docker.internal:3306/patient_db
+      - MLS_MYSQL_USERNAME=root
+      - MLS_MYSQL_PSW=root
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
+      interval: 10s
+      retries: 9
+
+  mls-note-service:
+    build: './doctor-note-service'
+    container_name: 'mls-note-service'
+    image: 'mls-note-service:last'
+    ports:
+      - '8082:8082'
+    expose:
+      - '8082'
+    environment:
+      - MLS_HOST_MONGO=host.docker.internal
+      - MLS_DB_NAME_MONGO=MediLaboSolutionsProjet
+      - MLS_MONGO_PORT=27017
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8082/actuator/health" ]
+      interval: 10s
+      retries: 9
+
+  mls-risk-service:
+    build: './risk-diabetes-service'
+    container_name: 'mls-risk-service'
+    image: 'mls-risk-service:last'
+    ports:
+      - '8083:8083'
+    expose:
+      - '8083'
+    environment:
+      - MLS_NOTE_URL=http://mls-note-service:8082
+      - MLS_PATIENT_URL=http://mls-patient-service:8081
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8083/actuator/health" ]
+      interval: 10s
+      retries: 9
+    depends_on:
+      mls-patient-service:
+        condition: service_healthy
+      mls-note-service:
+        condition: service_healthy
+
+  mls-gateway:
+    build: './gateway'
+    container_name: 'mls-gateway'
+    image: 'mls-gateway:last'
+    ports:
+      - '8080:8080'
+    expose:
+      - '8080'
+    environment:
+      - MLS_NOTE_URL=http://mls-note-service:8082
+      - MLS_PATIENT_URL=http://mls-patient-service:8081
+      - MLS_RISK_URL=http://mls-risk-service:8083
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/actuator/health" ]
+      interval: 10s
+      retries: 9
+    depends_on:
+      mls-risk-service:
+        condition: service_healthy
+
+  mls-front:
+    build: './front'
+    container_name: 'mls-front'
+    image: 'mls-front:last'
+    ports:
+      - '9000:9000'
+    expose:
+      - '9000'
+    environment:
+      - MLS_GATEWAY_URL=http://mls-gateway:8080
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/actuator/health" ]
+      interval: 10s
+      retries: 9
+    depends_on:
+      mls-gateway:
+        condition: service_healthy
