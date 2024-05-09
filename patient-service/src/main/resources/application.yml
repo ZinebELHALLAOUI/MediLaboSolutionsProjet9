@@ -5,6 +5,6 @@ spring:
     name: patient-service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/patient_db
-    username: root
-    password: root
+    url: jdbc:mysql://${MLS_MYSQL_HOST_AND_DB:localhost:3306/patient_db}
+    username: ${MLS_MYSQL_USERNAME:root}
+    password: ${MLS_MYSQL_PSW:root}

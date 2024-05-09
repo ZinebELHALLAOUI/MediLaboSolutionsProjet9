@@ -3,3 +3,8 @@ server:
 spring:
   application:
     name: risk-diabetes
+
+note-service:
+  url: ${MLS_NOTE_URL:http://localhost:8082}
+patient-service:
+  url: ${MLS_PATIENT_URL:http://localhost:8081}

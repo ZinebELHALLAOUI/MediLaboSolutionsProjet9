@@ -19,7 +19,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/patients")
 @AllArgsConstructor
-
 public class PatientController {
 
     private final PatientService patientService;

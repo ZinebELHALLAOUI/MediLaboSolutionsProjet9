@@ -3,3 +3,6 @@ spring:
     name: web-app
 server:
   port : 9000
+
+gateway:
+  url: ${MLS_GATEWAY_URL:http://localhost:8080}
