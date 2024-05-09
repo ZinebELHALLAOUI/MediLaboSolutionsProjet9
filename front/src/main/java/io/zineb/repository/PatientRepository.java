@@ -12,7 +12,7 @@ public interface PatientRepository {
 
     void createPatient(Patient patient);
 
-    void updatePatient(Patient patient);
+    void updatePatient(long id, Patient patient);
 
     List<Patient> getAll();
 

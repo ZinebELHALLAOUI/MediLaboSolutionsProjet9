@@ -43,10 +43,10 @@ public class PatientController {
         return ResponseEntity.ok(patientService.createPatient(patient));
     }
 
-    @PutMapping
-    public ResponseEntity<Patient> updatePatient(@Validated @RequestBody Patient patient) {
+    @PutMapping("{id}")
+    public ResponseEntity<Patient> updatePatient(@PathVariable long id, @Validated @RequestBody Patient patient) {
         try {
-            Patient updatedPatient = patientService.updatePatient(patient);
+            Patient updatedPatient = patientService.updatePatient(id, patient);
             return ResponseEntity.ok(updatedPatient);
         } catch (NotFoundEntityException e) {
             log.error("Error on update patient", e);

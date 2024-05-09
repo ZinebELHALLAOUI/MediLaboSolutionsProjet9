@@ -5,6 +5,7 @@ import io.zineb.gateway.GatewayProvider;
 import io.zineb.model.Patient;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,8 +39,8 @@ public class PatientRepositoryImpl implements PatientRepository {
     }
 
     @Override
-    public void updatePatient(Patient patient) {
-        gatewayProvider.updatePatient(patient);
+    public void updatePatient(long id, Patient patient) {
+        gatewayProvider.updatePatient(id, patient);
     }
 
     @Override

@@ -81,9 +81,9 @@ public class PatientController {
         return "redirect:/patients";
     }
 
-    @PostMapping("edit")
-    public String updatePatient(Patient patient) {
-        patientService.updatePatient(patient);
+    @PostMapping("edit/{patientId}")
+    public String updatePatient(long patientId, Patient patient) {
+        patientService.updatePatient(patientId, patient);
         return "redirect:/patients";
     }
 

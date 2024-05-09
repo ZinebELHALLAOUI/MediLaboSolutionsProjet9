@@ -16,7 +16,6 @@ public class PatientServiceImpl implements PatientService {
 
     private PatientRepository patientRepository;
 
-
     @Override
     public List<Patient> findPatientByFirstnameOrLastname(String query) {
         return patientRepository.findAllByFirstNameOrLastName(query,query);
@@ -39,10 +38,11 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient updatePatient(Patient patient) {
-        if (patient.getId() == null || findPatientById(patient.getId()).isEmpty()) {
+    public Patient updatePatient(long id, Patient patient) {
+        if (findPatientById(id).isEmpty()) {
             throw new NotFoundEntityException(String.format("Patient %s not found", patient.getId()));
         }
+        patient.setId(id);
         return patientRepository.save(patient);
     }
 

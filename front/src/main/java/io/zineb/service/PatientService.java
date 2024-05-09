@@ -26,8 +26,8 @@ public class PatientService {
         patientRepository.createPatient(patient);
     }
 
-    public void updatePatient(Patient patient) {
-        patientRepository.updatePatient(patient);
+    public void updatePatient(long id, Patient patient) {
+        patientRepository.updatePatient(id, patient);
     }
 
     public List<Patient> getAll(){

@@ -23,8 +23,8 @@ public interface GatewayProvider {
     @PostMapping("patients")
     Patient createPatient(Patient patient);
 
-    @PutMapping("patients")
-    Patient updatePatient(Patient patient);
+    @PutMapping("patients/{id}")
+    Patient updatePatient(@PathVariable long id, Patient patient);
 
     @GetMapping("notes/query")
     List<Note> getNotes(@RequestParam long patId);

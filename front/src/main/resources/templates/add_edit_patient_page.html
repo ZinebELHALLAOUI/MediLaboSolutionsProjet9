@@ -58,7 +58,7 @@
                         <button type="submit" class="btn btn-primary"><i class="bi bi-person-fill-add"></i> Add</button>
                     </fieldset>
                 </form>
-                <form th:if="${operation.equals('edit')}" action="#" th:action="@{/patients/edit}" th:object="${patient}"
+                <form th:if="${operation.equals('edit')}" action="#" th:action="@{/patients/edit/${patient.id}}" th:object="${patient}"
                       method="post">
                     <fieldset>
                         <legend>Edit</legend>
