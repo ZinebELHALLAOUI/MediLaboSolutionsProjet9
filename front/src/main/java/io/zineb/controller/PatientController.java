@@ -82,13 +82,13 @@ public class PatientController {
     }
 
     @PostMapping("edit/{patientId}")
-    public String updatePatient(long patientId, Patient patient) {
+    public String updatePatient(@PathVariable long patientId, Patient patient) {
         patientService.updatePatient(patientId, patient);
         return "redirect:/patients";
     }
 
     @PostMapping("/{patientId}/notes")
-    public String addNote(@PathVariable("patientId") long patientId, @ModelAttribute Note note) {
+    public String addNote(@PathVariable long patientId, @ModelAttribute Note note) {
         final Patient patient = patientService.getPatientById(patientId).get();
         Note noteToAdd = new Note(patientId, patient.lastName(), note.note());
         noteService.addNote(noteToAdd);
