@@ -22,32 +22,32 @@ public class PatientController {
     private final PatientService patientService;
 
     @GetMapping("search")
-    public ResponseEntity<List<Patient>> findPatientsByFirstnameOrLastname(@RequestParam String query) {
-        List<Patient> patients = patientService.findPatientByFirstnameOrLastname(query);
+    public ResponseEntity<List<PatientDto>> findPatientsByFirstnameOrLastname(@RequestParam String query) {
+        List<PatientDto> patients = patientService.findPatientByFirstnameOrLastname(query).stream().map(PatientDto::toDto).toList();
         return ResponseEntity.ok(patients);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Patient> getPatient(@PathVariable long id) {
+    public ResponseEntity<PatientDto> getPatient(@PathVariable long id) {
         Optional<Patient> patient = patientService.findPatientById(id);
-        return patient.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return patient.map(p -> ResponseEntity.ok(PatientDto.toDto(p))).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping
-    public ResponseEntity<List<Patient>> getAllPatients() {
-        return ResponseEntity.ok(patientService.getAll());
+    public ResponseEntity<List<PatientDto>> getAllPatients() {
+        return ResponseEntity.ok(patientService.getAll().stream().map(PatientDto::toDto).toList());
     }
 
     @PostMapping
-    public ResponseEntity<Patient> createPatient(@Validated @RequestBody Patient patient) {
-        return ResponseEntity.ok(patientService.createPatient(patient));
+    public ResponseEntity<PatientDto> createPatient(@Validated @RequestBody PatientDto patient) {
+        return ResponseEntity.ok(PatientDto.toDto(patientService.createPatient(patient)));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Patient> updatePatient(@PathVariable long id, @Validated @RequestBody Patient patient) {
+    public ResponseEntity<PatientDto> updatePatient(@PathVariable long id, @Validated @RequestBody PatientDto patient) {
         try {
             Patient updatedPatient = patientService.updatePatient(id, patient);
-            return ResponseEntity.ok(updatedPatient);
+            return ResponseEntity.ok(PatientDto.toDto(updatedPatient));
         } catch (NotFoundEntityException e) {
             log.error("Error on update patient", e);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
